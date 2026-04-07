@@ -2,45 +2,102 @@
 <html lang="fr">
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Science et code</title>
   <style>
-    nav{
-  text-align:center;
-}
- .presentation {
-  border: 2px solid firebrick;
-  padding: 10px;
-  border-radius: 10px;
-}
-h1{
-  text-align:center;
-  font-family:courier;
-  color:firebrick;
-  font-size:30pt;
-}
-body{
-  border: 5px;
-  margin: 20px;
-  background-color:#eaeaeb;
-}
-    h3{
-      text-align:center;
-      font-family:Arial;
+    * {
+      box-sizing: border-box;
+    }
+ 
+    body {
+      margin: 0;
+      padding: 16px;
+      background-color: #eaeaeb;
+      font-family: Arial, sans-serif;
+    }
+ 
+    h1 {
+      text-align: center;
+      font-family: courier;
+      color: firebrick;
+      font-size: clamp(20pt, 5vw, 30pt);
+      margin: 16px 0;
+      word-break: break-word;
+    }
+ 
+    .presentation {
+      border: 2px solid firebrick;
+      padding: 16px;
+      border-radius: 10px;
+      margin-bottom: 20px;
+    }
+ 
+    nav {
+      text-align: center;
+      display: flex;
+      flex-wrap: wrap; 
+      justify-content: center;
+      gap: 12px;
+    }
+ 
+    nav a {
+      display: inline-block;
+      padding: 8px 14px;
+      background-color: firebrick;
+      color: white;
+      text-decoration: none;
+      border-radius: 6px;
+      font-size: clamp(12px, 2.5vw, 16px);
+      transition: background-color 0.2s;
+    }
+ 
+    nav a:hover {
+      background-color: #a01010;
+    }
+ 
+    h3 {
+      text-align: center;
+      font-family: Arial;
+      font-size: clamp(13px, 2.5vw, 17px);
+      line-height: 1.6;
+      margin: 0;
+    }
+ 
+    @media (max-width: 768px) {
+      body {
+        padding: 12px;
+      }
+    }
+ 
+    @media (max-width: 480px) {
+      body {
+        padding: 10px;
+      }
+ 
+      nav {
+        flex-direction: column;
+        align-items: center;
+      }
+ 
+      nav a {
+        width: 100%;
+        text-align: center;
+      }
     }
   </style>
 </head>
 <body>
   <h1>Science et Code 😊</h1>
-<div class="presentation">
-<nav>
-  <a href="page2.html">Apprendre le HTML</a>
-  <a href="Actus.html">Derniéres actualités scientifiques</a>
-</nav>
-  </div>
-  <br>
-  <br>
+ 
   <div class="presentation">
-  <h3>Bienvenue sur mon site dédié à la science et au code ! Ici, vous trouverez des tutoriels de programmation clairs pour apprendre en s’amusant! Que vous soyez curieux ou passionné, ce site vous guide pour explorer le monde scientifique avec, toutes les deux semaines,les derniéres actualités scientifiques tout en développant vos compétences en code!</h3>
+    <nav>
+      <a href="page2.html">Apprendre le HTML</a>
+      <a href="Actus.html">Dernières actualités scientifiques</a>
+    </nav>
+  </div>
+ 
+  <div class="presentation">
+    <h3>Bienvenue sur mon site dédié à la science et au code ! Ici, vous trouverez des tutoriels de programmation clairs pour apprendre en s'amusant ! Que vous soyez curieux ou passionné, ce site vous guide pour explorer le monde scientifique avec, toutes les deux semaines, les dernières actualités scientifiques tout en développant vos compétences en code !</h3>
   </div>
 </body>
 </html>

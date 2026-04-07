@@ -2,80 +2,132 @@
 <html lang="fr">
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Apprendre le HTML</title>
   <style>
-    h1{
-  text-align:center;
-  font-family:courier;
-  color:firebrick;
-}
-h2{
- font-family:Arial;
-  color:firebrick;
-}
-h3{
-  color:firebrick;
-}
-p{
-  text-align:center;
-  color:firebrick;
-  font-size:154%;
-}
-h4{
-  color:firebrick;
-}
-h5{
-  color:firebrick;
-}
-img{
-  width:45%;
-}
-body{
-  border: 5px;
-  margin: 20px;
-  background-color:#eaeaeb;
-}
-    </style>
+    * {
+      box-sizing: border-box;
+    }
+ 
+    body {
+      margin: 0;
+      padding: 16px;
+      background-color: #eaeaeb;
+      font-family: Arial, sans-serif;
+    }
+ 
+    h1 {
+      text-align: center;
+      font-family: courier;
+      color: firebrick;
+      font-size: clamp(20pt, 5vw, 30pt);
+      word-break: break-word;
+    }
+ 
+    h2 {
+      font-family: Arial;
+      color: firebrick;
+      font-size: clamp(15px, 3vw, 22px);
+    }
+ 
+    h3 {
+      color: firebrick;
+      font-size: clamp(13px, 2.5vw, 18px);
+      line-height: 1.7;
+      font-weight: normal;
+    }
+ 
+    h4 {
+      color: firebrick;
+      font-size: clamp(12px, 2vw, 16px);
+    }
+ 
+    h5 {
+      color: firebrick;
+      font-size: clamp(11px, 1.8vw, 14px);
+    }
+ 
+    p {
+      text-align: center;
+      color: firebrick;
+      font-size: clamp(14px, 3vw, 22px);
+      word-break: break-word;
+    }
+ 
+    img {
+      width: 100%;
+      max-width: 700px;
+      height: auto;
+      border-radius: 8px;
+      display: block;
+      margin: 0 auto;
+    }
+
+    @media (max-width: 768px) {
+      body {
+        padding: 12px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      body {
+        padding: 10px;
+      }
+ 
+      h2, h3 {
+        word-break: break-word;
+      }
+    }
+  </style>
+</head>
 <body>
-<h1>Apprendre les bases du HTML 🤩</h1>
-<h2>Voici par exemple comment afficher un titre 👍:</h2>
-<p>&lt;h1&gt;Voici un exemple de titre&lt;/h1&gt;</p>
-<h3>mais cela est pour les titre de niveau 1,&lt;h2&gt;,pour un titre de niveau 2 etc...
-  <br>
-  <h3>Exemples pour les autres niveaux 🔥:</h3>
-  <br>
-    <h2>Titre de niveau 2<h2>
-      <h3>Titre de niveau 3</h3>
-<h4>Titre de niveau 4</h4>
-      <h5>Titre de niveau 5</h5>
-      <br>
-      <h3>maintenant que vous savez comment afficher un titre de tous les niveaux,il faut l'aligner,lui donner une couleur,ou une taille adéquate grace au CSS,un autre language de mise en page qui marche avec le HTML et qui sert au style.Le meilleur site pour ça serait sans doute <a href="https://codepen.io/">Codepen.io</a>:</h3>
-<div style="text-align: center;">
-  <img src="https://i.postimg.cc/yxkscYFV/screenshot-codepen-io-2026-04-01-20-15-57.png">
-  </div>
-      <h3>Donc vous savez mettre un titre,mais pour rédiger un paragraphe,il faut utiliser la balise &lt;p&gt;mon texte de paragraphe&lt;/p&gt;.Maintenant,le CSS!</h3>
-      <h1>LE CSS 🥳</h1>
-      <br>
-      <h3>le CSS sert donc à mettre de la couleur,aligner,etc...</h3>
-      <br>
-      <h2>Voici à quoi ressemble un éditeur CSS 🔥:</h2>
-      <div style="text-align: center;">
-       <img src="https://i.postimg.cc/TYPkZ4dX/screenshot-codepen-io-2026-04-02-20-55-43.png">
-  </div>
-      <h3>donc on retrouve bien h1 mais sans <> car il faut juste mettre:(avec la syntaxe si-dessus)<h3>
-        <br>
-        <br>
- <h3>///text-align:center; ///pour aligner au centre,left pour gauche right pour droite 👍!
-   <br>
-   <br>
-   ///color:blue;///pour mettre la police en bleue 💙!
-   <br>
-   <br>
-   ///font-family:Arial;///police Arial 🎯.</h3>
-        <h3>On peut aussi changer la couleur du fond dans le CSS en écrivant body puis 
-          <br>
-          <br>
-         ///backround-color:blue;/couleur bleue 💙.</h3>
-      </h3>
-      </body>
-      </html>
+ 
+  <h1>Apprendre les bases du HTML 🤩</h1>
+ 
+  <h2>Voici par exemple comment afficher un titre 👍 :</h2>
+  <p>&lt;h1&gt;Voici un exemple de titre&lt;/h1&gt;</p>
+ 
+  <h3>Mais cela est pour les titres de niveau 1 — utilisez &lt;h2&gt; pour un titre de niveau 2, etc.</h3>
+ 
+  <h3>Exemples pour les autres niveaux 🔥 :</h3>
+ 
+  <h2>Titre de niveau 2</h2>
+  <h3>Titre de niveau 3</h3>
+  <h4>Titre de niveau 4</h4>
+  <h5>Titre de niveau 5</h5>
+ 
+  <h3>
+    Maintenant que vous savez comment afficher un titre de tous les niveaux, il faut l'aligner, lui donner une couleur ou une taille adéquate grâce au CSS — un autre langage de mise en page qui marche avec le HTML et qui sert au style. Le meilleur site pour ça serait sans doute <a href="https://codepen.io/" target="_blank">Codepen.io</a> :
+  </h3>
+ 
+  <img src="https://i.postimg.cc/yxkscYFV/screenshot-codepen-io-2026-04-01-20-15-57.png" alt="Capture d'écran de Codepen.io">
+ 
+  <h3>Donc vous savez mettre un titre, mais pour rédiger un paragraphe, il faut utiliser la balise &lt;p&gt;mon texte de paragraphe&lt;/p&gt;. Maintenant, le CSS !</h3>
+ 
+  <h1>LE CSS 🥳</h1>
+ 
+  <h3>Le CSS sert donc à mettre de la couleur, aligner, etc.</h3>
+ 
+  <h2>Voici à quoi ressemble un éditeur CSS 🔥 :</h2>
+ 
+  <img src="https://i.postimg.cc/TYPkZ4dX/screenshot-codepen-io-2026-04-02-20-55-43.png" alt="Capture d'écran d'un éditeur CSS sur Codepen">
+ 
+  <h3>On retrouve bien <code>h1</code> mais sans &lt;&gt;, car il faut juste écrire (avec la syntaxe ci-dessous) :</h3>
+ 
+  <h3>
+    /// text-align: center; /// pour aligner au centre, <em>left</em> pour gauche, <em>right</em> pour droite 👍 !
+    <br><br>
+    /// color: blue; /// pour mettre la police en bleue 💙 !
+    <br><br>
+    /// font-family: Arial; /// police Arial 🎯.
+  </h3>
+ 
+  <h3>
+    On peut aussi changer la couleur du fond dans le CSS en écrivant <code>body</code> puis :
+    <br><br>
+    /// background-color: blue; /// couleur bleue 💙.
+  </h3>
+ 
+</body>
+</html>
+ 

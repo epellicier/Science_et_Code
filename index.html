@@ -39,15 +39,5 @@ body{
   <div class="presentation">
   <p>Bienvenue sur mon site dédié à la science et au code ! Ici, vous trouverez des tutoriels de programmation clairs pour apprendre en s’amusant! Que vous soyez curieux ou passionné, ce site vous guide pour explorer le monde scientifique avec, toutes les deux semaines,les derniéres actualités scientifiques tout en développant vos compétences en code!</p>
   </div>
-    <script>
-    fetch('https://api.counterapi.dev/v1/science-et-code/visites/up')
-      .then(res => res.json())
-      .then(data => {
-        document.getElementById('compteur-visites').textContent = data.count;
-      })
-      .catch(() => {
-        document.getElementById('compteur-visites').textContent = '—';
-      });
-  </script>
 </body>
 </html>

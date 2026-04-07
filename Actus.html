@@ -2,62 +2,132 @@
 <html lang="fr">
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Dernières actualités scientifiques</title>
   <style>
-    
-h1{
-  text-align:center;
-  color:firebrick;
-  font-family:courier;
-}
-body {
-  border: 5px;
-  margin: 20px;
-  background-color:#eaeaeb;
-}
-  .presentation {
-  border: 2px solid firebrick;
-  padding: 10px;
-  border-radius: 10px;
-}
+    * {
+      box-sizing: border-box;
+    }
+ 
+    body {
+      margin: 0;
+      padding: 16px;
+      background-color: #eaeaeb;
+      font-family: Arial, sans-serif;
+    }
+ 
+    h1 {
+      text-align: center;
+      color: firebrick;
+      font-family: courier;
+      font-size: clamp(18pt, 4vw, 28pt);
+      word-break: break-word;
+      margin: 16px 0;
+    }
+ 
+    h2 {
+      text-align: center;
+      font-family: Arial;
+      font-size: clamp(13px, 2.5vw, 18px);
+      font-weight: normal;
+      line-height: 1.5;
+      margin: 12px 8px 20px;
+    }
+ 
+    h3 {
+      font-family: Arial;
+      font-size: clamp(13px, 2.5vw, 16px);
+      line-height: 1.7;
+      font-weight: normal;
+      margin: 0 0 12px 0;
+    }
+ 
+    .presentation {
+      border: 2px solid firebrick;
+      padding: 16px;
+      border-radius: 10px;
+      margin-bottom: 20px;
+    }
+ 
+    nav {
+      text-align: center;
+      margin-top: 10px;
+    }
+ 
+    nav a {
+      display: inline-block;
+      padding: 8px 16px;
+      background-color: firebrick;
+      color: white;
+      text-decoration: none;
+      border-radius: 6px;
+      font-size: clamp(12px, 2.5vw, 15px);
+      transition: background-color 0.2s;
+    }
+ 
+    nav a:hover {
+      background-color: #a01010;
+    }
+ 
+    @media (max-width: 480px) {
+      body {
+        padding: 10px;
+      }
+ 
+      nav a {
+        display: block;
+        width: 100%;
+        text-align: center;
+      }
+    }
   </style>
 </head>
 <body>
-  <h1>Les derniéres actualités scientifiques 🧪👩🏽‍🔬</h1>
-<br>
-<h2>Cette page va vous permettre de vous tenir au courant des dernières actualités scientifiques dans le monde 🌍!<h2>
-  <br>
+ 
+  <h1>Les dernières actualités scientifiques 🧪👩🏽‍🔬</h1>
+ 
+  <h2>Cette page va vous permettre de vous tenir au courant des dernières actualités scientifiques dans le monde 🌍 !</h2>
+ 
   <div class="presentation">
-  <h3>🌌 Une découverte importante sur l’origine de la vie
-Des scientifiques ont détecté une molécule essentielle à la vie dans l’espace
-Trouvée dans un nuage à 27 000 années-lumière
-Elle contient du soufre, un élément clé du vivant.
-Cela pourrait expliquer comment la vie est apparue sur Terre
-    <br>
-👉 On se rapproche de la réponse à une grande question :
-la vie vient-elle de l’espace ?!
+    <h3>
+      🌌 Une découverte importante sur l'origine de la vie<br>
+      Des scientifiques ont détecté une molécule essentielle à la vie dans l'espace.<br>
+      Trouvée dans un nuage à 27 000 années-lumière,<br>
+      elle contient du soufre, un élément clé du vivant.<br>
+      Cela pourrait expliquer comment la vie est apparue sur Terre.<br><br>
+      👉 On se rapproche de la réponse à une grande question : la vie vient-elle de l'espace ?!
+    </h3>
     <nav>
-      <a href="https://www.science-et-vie.com/ciel-et-espace/decouverte-inedite-dune-molecule-organique-complexe-liee-au-vivant-dans-un-nuage-interstellaire-225937.html">Science et vie</a>
-    </div>
-    <br>
-    <div class="presentation">
-      <h3>🧪 Une vieille œuvre d’art… encore plus ancienne !
-
-Des scientifiques ont daté une peinture rupestre à :
-<br>👉 67 800 ans C’est la plus ancienne œuvre connue d’humains modernes. Elle a été découverte en Indonésie<br>👉 Cela change notre vision de l’histoire de l’humanité.
-        <nav>
-          <a href="https://www.courrierinternational.com/article/prehistoire-la-plus-ancienne-peinture-connue-est-indonesienne-et-elle-a-67-800-ans_239672">Courier international</a>
-        </nav>
-    </div>
-      <br>
-      <div class="presentation">
-        <h3>🔭 De nouveaux télescopes pour chercher la vie
-Plusieurs missions arrivent :
-le télescope spatial PLATO (Europe)
-des satellites pour analyser l’atmosphère des exoplanètes       <br>👉 Objectif :trouver des planètes habitables, voire de la vie ailleurs.
-          <nav>
-            <a href="https://www.cieletespace.fr/article/plato-sous-les-secousses">Ciel et espace<a>
-          </nav>
-          </div>
+      <a href="https://www.science-et-vie.com/ciel-et-espace/decouverte-inedite-dune-molecule-organique-complexe-liee-au-vivant-dans-un-nuage-interstellaire-225937.html" target="_blank">Science et Vie</a>
+    </nav>
+  </div>
+ 
+  <div class="presentation">
+    <h3>
+      🧪 Une vieille œuvre d'art… encore plus ancienne !<br>
+      Des scientifiques ont daté une peinture rupestre à :<br><br>
+      👉 67 800 ans — c'est la plus ancienne œuvre connue d'humains modernes.<br>
+      Elle a été découverte en Indonésie.<br><br>
+      👉 Cela change notre vision de l'histoire de l'humanité.
+    </h3>
+    <nav>
+      <a href="https://www.courrierinternational.com/article/prehistoire-la-plus-ancienne-peinture-connue-est-indonesienne-et-elle-a-67-800-ans_239672" target="_blank">Courrier International</a>
+    </nav>
+  </div>
+ 
+  <div class="presentation">
+    <h3>
+      🔭 De nouveaux télescopes pour chercher la vie<br>
+      Plusieurs missions arrivent :<br>
+      le télescope spatial PLATO (Europe),<br>
+      des satellites pour analyser l'atmosphère des exoplanètes.<br><br>
+      👉 Objectif : trouver des planètes habitables, voire de la vie ailleurs.
+    </h3>
+    <nav>
+      <a href="https://www.cieletespace.fr/article/plato-sous-les-secousses" target="_blank">Ciel et Espace</a>
+    </nav>
+  </div>
+ 
 </body>
-    </html>  
+</html>
+ 

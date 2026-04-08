@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Quiz — Science et Code</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: system-ui, sans-serif;
+      background: #f4f4f5;
+      display: flex;
+      justify-content: center;
+      padding: 2rem 1rem;
+      min-height: 100vh;
+    }
+    #wrap {
+      background: #eaeaeb;
+      padding: 1.5rem;
+      border-radius: 16px;
+      width: 100%;
+      max-width: 640px;
+      height: fit-content;
+    }
+    #header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 1.25rem; }
+    #q-label { font-size: 12px; font-weight: 500; color: #888; letter-spacing: .06em; text-transform: uppercase; }
+    #score-live { font-size: 12px; font-weight: 500; color: firebrick; background: #fdecea; padding: 3px 10px; border-radius: 20px; }
+    #bar-track { height: 5px; background: #d4d4d5; border-radius: 3px; margin-bottom: 1.5rem; overflow: hidden; }
+    #bar-fill { height: 100%; background: firebrick; border-radius: 3px; transition: width .45s cubic-bezier(.4,0,.2,1); width: 0%; }
+    #cat-pill { display: inline-flex; align-items: center; gap: 6px; font-size: 11px; font-weight: 500; padding: 4px 12px; border-radius: 20px; margin-bottom: .9rem; }
+    .pill-html    { background: #fdecea; color: #9b1919; }
+    .pill-science { background: #e8eaf6; color: #2d3a9e; }
+    .pill-astro   { background: #e8f4f0; color: #0a5f45; }
+    #q-num-dot { width: 7px; height: 7px; border-radius: 50%; background: currentColor; display: inline-block; }
+    #q-text { font-size: 16px; font-weight: 500; color: #111; line-height: 1.55; margin-bottom: 1.25rem; }
+    .opt {
+      display: flex; align-items: center; gap: 12px;
+      width: 100%; text-align: left;
+      background: #fff; border: 1.5px solid #d8d8d9; border-radius: 11px;
+      padding: 11px 14px; margin-bottom: 9px;
+      font-size: 14px; cursor: pointer; color: #111;
+      transition: border-color .15s, background .15s;
+    }
+    .opt:hover:not(:disabled) { border-color: firebrick; background: #fdf5f5; }
+    .opt-letter {
+      width: 24px; height: 24px; border-radius: 6px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 11px; font-weight: 500; flex-shrink: 0;
+      background: #f0f0f1; color: #888;
+      transition: background .15s, color .15s;
+    }
+    .opt-text { font-family: monospace; font-size: 13px; }
+    .opt.correct             { border-color: #1d9e75; background: #eafaf4; }
+    .opt.correct .opt-letter { background: #1d9e75; color: #fff; }
+    .opt.wrong               { border-color: firebrick; background: #fdecea; }
+    .opt.wrong .opt-letter   { background: firebrick; color: #fff; }
+    .opt.reveal              { border-color: #1d9e75; background: #eafaf4; }
+    .opt.reveal .opt-letter  { background: #1d9e75; color: #fff; }
+    #fb-box {
+      margin: 1rem 0 .5rem; border-radius: 0 10px 10px 0;
+      padding: 12px 16px; font-size: 13px; line-height: 1.7;
+      display: none; border-left: 3px solid #ccc;
+    }
+    #fb-box.ok { display: block; border-left-color: #1d9e75; background: #f0faf6; }
+    #fb-box.ko { display: block; border-left-color: firebrick; background: #fef4f4; }
+    #fb-verdict { font-size: 13px; font-weight: 500; margin-bottom: 4px; }
+    #fb-box.ok #fb-verdict { color: #0f6e56; }
+    #fb-box.ko #fb-verdict { color: firebrick; }
+    #fb-text { color: #555; }
+    #next-btn {
+      margin-top: 1rem; background: firebrick; color: #fff;
+      border: none; border-radius: 9px; padding: 11px 28px;
+      font-size: 14px; font-weight: 500; cursor: pointer;
+      display: none; transition: background .15s;
+    }
+    #next-btn:hover { background: #b91c1c; }
+    #score-screen { display: none; text-align: center; padding: 1.5rem .5rem 1rem; }
+    #sc-icon {
+      width: 56px; height: 56px; border-radius: 50%;
+      background: #fdecea; display: flex; align-items: center;
+      justify-content: center; margin: 0 auto 1rem;
+    }
+    #sc-icon svg { width: 28px; height: 28px; }
+    #sc-num   { font-size: 46px; font-weight: 500; color: firebrick; line-height: 1; }
+    #sc-denom { font-size: 18px; color: #bbb; font-weight: 400; }
+    #sc-msg   { font-size: 15px; font-weight: 500; color: #111; margin: .75rem 0 .4rem; }
+    #sc-sub   { font-size: 13px; color: #777; margin-bottom: 1.5rem; line-height: 1.6; }
+    #sc-cats  { display: flex; justify-content: center; gap: 12px; margin-bottom: 1.5rem; flex-wrap: wrap; }
+    .sc-cat       { background: #fff; border: 0.5px solid #ddd; border-radius: 10px; padding: 10px 16px; font-size: 13px; text-align: center; }
+    .sc-cat-label { color: #888; font-size: 11px; margin-bottom: 3px; }
+    .sc-cat-score { font-size: 18px; font-weight: 500; color: firebrick; }
+    #restart-btn {
+      background: firebrick; color: #fff; border: none;
+      border-radius: 9px; padding: 11px 28px;
+      font-size: 14px; font-weight: 500; cursor: pointer;
+      transition: background .15s;
+    }
+    #restart-btn:hover { background: #b91c1c; }
+  </style>
+</head>
+<body>
+<div id="wrap">
+  <div id="header">
+    <span id="q-label">Question <span id="q-n">1</span> sur 10</span>
+    <span id="score-live">0 / 0</span>
+  </div>
+  <div id="bar-track"><div id="bar-fill"></div></div>
+  <div id="cat-pill"><span id="q-num-dot"></span><span id="cat-txt"></span></div>
+  <div id="q-text"></div>
+  <div id="options"></div>
+  <div id="fb-box"><div id="fb-verdict"></div><div id="fb-text"></div></div>
+  <button id="next-btn">Question suivante →</button>
+  <div id="score-screen">
+    <div id="sc-icon">
+      <svg viewBox="0 0 24 24" fill="none" stroke="firebrick" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <polyline points="20 6 9 17 4 12"/>
+      </svg>
+    </div>
+    <div><span id="sc-num"></span><span id="sc-denom"> / 10</span></div>
+    <div id="sc-msg"></div>
+    <div id="sc-sub"></div>
+    <div id="sc-cats">
+      <div class="sc-cat"><div class="sc-cat-label">HTML / CSS</div><div class="sc-cat-score" id="sc-html"></div></div>
+      <div class="sc-cat"><div class="sc-cat-label">Sciences</div><div class="sc-cat-score" id="sc-sci"></div></div>
+      <div class="sc-cat"><div class="sc-cat-label">Astronomie</div><div class="sc-cat-score" id="sc-astro"></div></div>
+    </div>
+    <button id="restart-btn">Recommencer</button>
+  </div>
+</div>
+ 
+<script>
+const LETTERS = ['A', 'B', 'C', 'D'];
+ 
+const questions = [
+  {
+    cat: 'html', catLabel: 'HTML', pilClass: 'pill-html',
+    q: "Quelle balise HTML permet d'afficher un titre de niveau 4 ?",
+    opts: ["<h4>", "<title4>", "<t4>", "<heading4>"], ans: 0,
+    expl: "En HTML, les titres vont de <h1> (le plus important) à <h6> (le moins important). La balise <h4> est donc le titre de niveau 4. On les utilise pour structurer hiérarchiquement le contenu d'une page, ce qui aide aussi le référencement (SEO)."
+  },
+  {
+    cat: 'html', catLabel: 'HTML', pilClass: 'pill-html',
+    q: "Quelle balise HTML permet d'écrire un paragraphe de texte ?",
+    opts: ["<text>", "<p>", "<para>", "<txt>"], ans: 1,
+    expl: "La balise <p> (pour 'paragraph') est l'une des plus utilisées en HTML. Elle crée un bloc de texte avec des marges automatiques en haut et en bas. À ne pas confondre avec <span>, qui est une balise inline pour styliser une portion de texte sans créer de saut de ligne."
+  },
+  {
+    cat: 'science', catLabel: 'Sciences', pilClass: 'pill-science',
+    q: "Quelle scientifique a découvert la radioactivité de l'uranium et reçu deux prix Nobel ?",
+    opts: ["Lise Meitner", "Rosalind Franklin", "Marie Curie", "Hedy Lamarr"], ans: 2,
+    expl: "Marie Curie (1867–1934) est la première personne à avoir reçu deux prix Nobel : en Physique en 1903 (pour la radioactivité) et en Chimie en 1911 (pour la découverte du polonium et du radium). Elle est aussi la première femme professeure à l'université de Paris. Ses carnets de recherche sont encore radioactifs aujourd'hui et conservés sous plomb."
+  },
+  {
+    cat: 'science', catLabel: 'Sciences', pilClass: 'pill-science',
+    q: "Comment se nomme le premier être humain à être allé dans l'espace ?",
+    opts: ["Neil Armstrong", "Buzz Aldrin", "Youri Gagarine", "Alan Shepard"], ans: 2,
+    expl: "Youri Gagarine (1934–1968) est le premier homme à avoir voyagé dans l'espace, le 12 avril 1961, à bord du vaisseau soviétique Vostok 1. Son vol a duré 108 minutes et il a effectué une orbite complète autour de la Terre. Neil Armstrong, lui, sera le premier à marcher sur la Lune en 1969."
+  },
+  {
+    cat: 'html', catLabel: 'HTML / CSS', pilClass: 'pill-html',
+    q: "Comment se nomme le langage qui permet de donner du style à une page web ?",
+    opts: ["JavaScript", "XML", "Markdown", "CSS"], ans: 3,
+    expl: "CSS (Cascading Style Sheets) est le langage qui contrôle l'apparence visuelle d'une page HTML : couleurs, polices, marges, tailles, animations… Il fonctionne en 'cascade' : les règles les plus spécifiques l'emportent sur les générales. HTML structure le contenu, CSS l'habille, JavaScript le rend interactif — c'est le trio fondamental du web."
+  },
+  {
+    cat: 'astro', catLabel: 'Astronomie', pilClass: 'pill-astro',
+    q: "Quelle est la température à la surface du Soleil ?",
+    opts: ["1 000 °C", "6 000 °C", "100 000 °C", "1 million °C"], ans: 1,
+    expl: "La surface visible du Soleil (la photosphère) est à environ 5 500–6 000 °C. Paradoxalement, la couronne solaire (l'atmosphère externe) atteint plusieurs millions de degrés — un mystère encore non totalement résolu. Le cœur du Soleil, lui, dépasse les 15 millions de degrés, permettant la fusion nucléaire."
+  },
+  {
+    cat: 'astro', catLabel: 'Astronomie', pilClass: 'pill-astro',
+    q: "Combien de planètes compte notre système solaire ?",
+    opts: ["7", "8", "9", "10"], ans: 1,
+    expl: "Depuis 2006, le système solaire compte officiellement 8 planètes. Pluton, autrefois considérée comme la 9e, a été reclassée en 'planète naine' par l'Union Astronomique Internationale. Les 8 planètes sont : Mercure, Vénus, Terre, Mars, Jupiter, Saturne, Uranus et Neptune."
+  },
+  {
+    cat: 'astro', catLabel: 'Astronomie', pilClass: 'pill-astro',
+    q: "Qu'appelle-t-on la 'zone habitable' autour d'une étoile ?",
+    opts: ["La zone où des lunes peuvent orbiter", "La région où l'eau liquide peut exister en surface", "La distance minimale pour éviter les éruptions solaires", "La zone de gravité nulle"], ans: 1,
+    expl: "La zone habitable (ou 'zone de Goldilocks') est la région autour d'une étoile où les conditions de température permettent à l'eau d'exister à l'état liquide en surface. La Terre est idéalement placée dans cette zone. Mars en est à la limite externe, Vénus déborde de la limite interne."
+  },
+  {
+    cat: 'science', catLabel: 'Sciences', pilClass: 'pill-science',
+    q: "Combien d'os compte le corps humain adulte ?",
+    opts: ["106", "206", "306", "406"], ans: 1,
+    expl: "Le corps humain adulte compte 206 os. À la naissance, on en a environ 270–300, mais beaucoup fusionnent durant l'enfance et l'adolescence. Le fémur est le plus long et le plus solide, tandis que l'étrier dans l'oreille interne est le plus petit — à peine 3 mm."
+  },
+  {
+    cat: 'astro', catLabel: 'Astronomie', pilClass: 'pill-astro',
+    q: "Que deviendra notre Soleil dans environ 5 milliards d'années ?",
+    opts: ["Il explosera en supernova", "Il se dilatera en géante rouge, puis deviendra une naine blanche", "Il s'éteindra brusquement", "Il sera absorbé par un trou noir"], ans: 1,
+    expl: "Le Soleil, trop peu massif pour finir en supernova, va d'abord se dilater en géante rouge, engloutissant potentiellement la Terre. Il éjectera ensuite ses couches externes et son noyau deviendra une naine blanche — un astre de la taille de la Terre mais d'une densité extrême, qui refroidira pendant des milliards d'années."
+  }
+];
+ 
+function escHtml(s) {
+  return s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+}
+ 
+let cur = 0, score = 0, answered = false, order = [];
+let catScores = { html: {ok:0,tot:0}, science: {ok:0,tot:0}, astro: {ok:0,tot:0} };
+ 
+function shuffle(a) { return [...a].sort(() => Math.random() - .5); }
+ 
+function load() {
+  const q = questions[order[cur]];
+  document.getElementById('q-n').textContent = cur + 1;
+  document.getElementById('bar-fill').style.width = `${cur / questions.length * 100}%`;
+  document.getElementById('score-live').textContent = `${score} / ${cur}`;
+  const pill = document.getElementById('cat-pill');
+  pill.className = 'cat-pill ' + q.pilClass;
+  document.getElementById('cat-txt').textContent = q.catLabel;
+  document.getElementById('q-text').textContent = q.q;
+  const fb = document.getElementById('fb-box');
+  fb.className = ''; fb.style.display = 'none';
+  document.getElementById('next-btn').style.display = 'none';
+  answered = false;
+  const opts = document.getElementById('options');
+  opts.innerHTML = '';
+  q.opts.forEach((o, i) => {
+    const btn = document.createElement('button');
+    btn.className = 'opt';
+    const isCode = o.startsWith('<');
+    btn.innerHTML = `<span class="opt-letter">${LETTERS[i]}</span><span class="${isCode ? 'opt-text' : ''}">${escHtml(o)}</span>`;
+    btn.onclick = () => pick(i);
+    opts.appendChild(btn);
+  });
+}
+ 
+function pick(chosen) {
+  if (answered) return;
+  answered = true;
+  const q = questions[order[cur]];
+  const btns = document.querySelectorAll('.opt');
+  btns.forEach(b => b.disabled = true);
+  catScores[q.cat].tot++;
+  const fb = document.getElementById('fb-box');
+  const verdict = document.getElementById('fb-verdict');
+  const txt = document.getElementById('fb-text');
+  if (chosen === q.ans) {
+    btns[chosen].classList.add('correct');
+    fb.className = 'ok'; fb.style.display = 'block';
+    verdict.textContent = 'Bonne réponse !';
+    score++; catScores[q.cat].ok++;
+  } else {
+    btns[chosen].classList.add('wrong');
+    btns[q.ans].classList.add('reveal');
+    fb.className = 'ko'; fb.style.display = 'block';
+    verdict.textContent = 'Pas tout à fait…';
+  }
+  txt.textContent = q.expl;
+  document.getElementById('score-live').textContent = `${score} / ${cur + 1}`;
+  const nb = document.getElementById('next-btn');
+  nb.style.display = 'inline-block';
+  nb.textContent = cur < questions.length - 1 ? 'Question suivante →' : 'Voir les résultats →';
+}
+ 
+document.getElementById('next-btn').onclick = () => {
+  cur++;
+  if (cur < questions.length) load();
+  else showScore();
+};
+ 
+function showScore() {
+  document.getElementById('bar-fill').style.width = '100%';
+  ['q-label', 'cat-pill', 'q-text', 'options', 'fb-box', 'next-btn'].forEach(id => {
+    const el = document.getElementById(id);
+    if (el) el.style.display = 'none';
+  });
+  document.getElementById('score-live').style.display = 'none';
+  document.getElementById('score-screen').style.display = 'block';
+  document.getElementById('sc-num').textContent = score;
+  const p = score / questions.length;
+  const msgs = [
+    [.9, 'Excellent !',      "Tu maîtrises très bien HTML, les sciences et l'astronomie."],
+    [.7, 'Très bien !',      "Quelques points à revoir, mais les bases sont solides."],
+    [.5, 'Pas mal !',        "Continue d'explorer — il y a encore beaucoup à découvrir."],
+    [0,  "C'est un début !", "Relis les explications de chaque question pour progresser."]
+  ];
+  const [, m, s] = msgs.find(([t]) => p > t) || msgs[3];
+  document.getElementById('sc-msg').textContent = m;
+  document.getElementById('sc-sub').textContent = s;
+  document.getElementById('sc-html').textContent  = `${catScores.html.ok}/${catScores.html.tot}`;
+  document.getElementById('sc-sci').textContent   = `${catScores.science.ok}/${catScores.science.tot}`;
+  document.getElementById('sc-astro').textContent = `${catScores.astro.ok}/${catScores.astro.tot}`;
+}
+ 
+document.getElementById('restart-btn').onclick = () => {
+  cur = 0; score = 0; answered = false;
+  catScores = { html: {ok:0,tot:0}, science: {ok:0,tot:0}, astro: {ok:0,tot:0} };
+  order = shuffle([...Array(questions.length).keys()]);
+  document.getElementById('score-screen').style.display = 'none';
+  ['q-label', 'cat-pill', 'q-text', 'options', 'next-btn'].forEach(id => {
+    const el = document.getElementById(id);
+    if (el) el.style.display = '';
+  });
+  document.getElementById('score-live').style.display = '';
+  load();
+};
+ 
+order = shuffle([...Array(questions.length).keys()]);
+load();
+</script>
+</body>
+</html>
+ 

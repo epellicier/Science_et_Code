@@ -101,27 +101,11 @@
   <div class="presentation">
     <h3>Bienvenue sur mon site dédié à la science et au code, je suis un jeune codeur passioné de science, de code et d'humour :-).Ce site est mon tout premier site! Ici, vous trouverez des tutoriels de programmation clairs pour apprendre en s'amusant ! Que vous soyez curieux ou passionné, ce site vous guide pour explorer le monde scientifique tout en développant vos compétences en code !</h3>
   </div>
+
+  <center>
+  <img src="https://hits.sh/epellicier.github.io/Science_et_Code.svg?style=flat&label=Visites&color=firebrick" alt="visites" />
+  <p style="font-size:8pt;">(depuis le 19/04/2026)</p>
+</center>
   
-<?php
-// Chemin du fichier compteur
-$fichier = 'compteur.txt';
-
-// Vérifie si le fichier existe, sinon le crée avec 0
-if (!file_exists($fichier)) {
-    file_put_contents($fichier, '0');
-}
-
-// Lecture du nombre de visites actuel
-$visites = (int)file_get_contents($fichier);
-
-// Incrémentation
-$visites++;
-
-// Écriture du nouveau nombre dans le fichier
-file_put_contents($fichier, $visites);
-
-// Affichage
-echo "<center><p>🔥 Nombre de visites : <strong>$visites</strong><br><span style='font-size:8pt;'>(depuis le 19/04/2026)</span></p></center>";
-?>
 </body>
 </html>

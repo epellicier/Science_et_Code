@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -36,7 +35,7 @@
     nav {
       text-align: center;
       display: flex;
-      flex-wrap: wrap; 
+      flex-wrap: wrap;
       justify-content: center;
       gap: 12px;
     }
@@ -64,16 +63,84 @@
       margin: 0;
     }
  
+    /* ── Fun facts ── */
+    .funfact-box {
+      margin-top: 14px;
+      background: #fff8f8;
+      border-radius: 8px;
+      padding: 16px 18px;
+      min-height: 80px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+ 
+    .funfact-text {
+      font-family: Arial, sans-serif;
+      font-size: clamp(13px, 2.3vw, 15px);
+      line-height: 1.65;
+      color: #1a1a1a;
+      font-style: italic;
+      text-align: center;
+      opacity: 1;
+      transform: translateY(0);
+      transition: opacity 0.3s ease, transform 0.3s ease;
+    }
+ 
+    .funfact-text.hidden {
+      opacity: 0;
+      transform: translateY(8px);
+    }
+ 
+    .funfact-footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+ 
+    .funfact-badge {
+      font-size: 11px;
+      font-weight: bold;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: firebrick;
+      background: #f5e0e0;
+      padding: 4px 12px;
+      border-radius: 999px;
+      transition: opacity 0.3s ease;
+    }
+ 
+    .funfact-badge.hidden { opacity: 0; }
+ 
+    .funfact-btn {
+      font-family: Arial, sans-serif;
+      font-size: clamp(12px, 2vw, 14px);
+      color: white;
+      background: firebrick;
+      border: none;
+      border-radius: 6px;
+      padding: 7px 16px;
+      cursor: pointer;
+      transition: background-color 0.2s, transform 0.1s;
+    }
+ 
+    .funfact-btn:hover { background: #a01010; }
+    .funfact-btn:active { transform: scale(0.97); }
+ 
+    .funfact-counter {
+      font-size: 11px;
+      color: #888;
+      white-space: nowrap;
+    }
+ 
     @media (max-width: 768px) {
-      body {
-        padding: 12px;
-      }
+      body { padding: 12px; }
     }
  
     @media (max-width: 480px) {
-      body {
-        padding: 10px;
-      }
+      body { padding: 10px; }
  
       nav {
         flex-direction: column;
@@ -84,6 +151,13 @@
         width: 100%;
         text-align: center;
       }
+ 
+      .funfact-footer {
+        flex-direction: column;
+        align-items: center;
+      }
+ 
+      .funfact-btn { width: 100%; text-align: center; }
     }
   </style>
 </head>
@@ -102,13 +176,114 @@
   <div class="presentation">
     <h3>Bienvenue sur mon site dédié à la science et au code, je suis un jeune codeur passionné de science, de code et d'humour :-).Ce site est mon tout premier site! Ici, vous trouverez des tutoriels de programmation clairs pour apprendre en s'amusant ! Que vous soyez curieux ou passionné, ce site vous guide pour explorer le monde scientifique tout en développant vos compétences en code !</h3>
   </div>
- <br>
+ 
+  <br>
+ 
   <div class="presentation">
-    <h3>Fun facts 😊:</h3>
-    <span style="color:firebrick; font-size:13pt;"><?php include 'Fun.php';?><br></span><br>
+    <h3>Fun facts 😊 :</h3>
+    <div class="funfact-box">
+      <p class="funfact-text" id="ff-text"></p>
+      <div class="funfact-footer">
+        <span class="funfact-badge" id="ff-badge"></span>
+        <span class="funfact-counter" id="ff-counter"></span>
+        <button class="funfact-btn" id="ff-btn">Autre fait →</button>
+      </div>
+    </div>
   </div>
+ 
   <div style="text-align: center;">
     <img style="width:50pt;" src="https://hits.sh/github.com/epellicier/Science_et_Code.svg?label=Visites&color=9c1c0d&labelColor=f7f3f3" alt="Visites 🔥">
   </div>
+ 
+  <script>
+    const facts = [
+      { text: "Un octet contient 8 bits. Le mot « octet » vient du latin <em>octo</em>, signifiant huit.", cat: "Informatique" },
+      { text: "Le premier bug informatique était un vrai insecte : une mite trouvée dans un relais du Harvard Mark II en 1947.", cat: "Histoire de l'info" },
+      { text: "L'ADN humain contient environ 3 milliards de paires de bases, soit l'équivalent de 750 mégaoctets de données.", cat: "Biologie" },
+      { text: "Si un ordinateur effectuait une opération par nanoseconde, il lui faudrait 31,7 ans pour effectuer un milliard de milliards d'opérations.", cat: "Informatique" },
+      { text: "La lumière parcourt environ 30 cm en une nanoseconde, ce qui limite physiquement la vitesse des processeurs.", cat: "Physique" },
+      { text: "Le mot « algorithm » vient du nom du mathématicien perse Al-Khwarizmi, père de l'algèbre.", cat: "Histoire des sciences" },
+      { text: "Il y a plus de configurations possibles dans un jeu d'échecs qu'il n'y a d'atomes dans l'univers observable.", cat: "Mathématiques" },
+      { text: "Le premier langage de programmation de haut niveau, Fortran, date de 1957.", cat: "Histoire de l'info" },
+      { text: "La loi de Moore prédit le doublement du nombre de transistors tous les deux ans — elle a tenu pendant plus de 50 ans.", cat: "Informatique" },
+      { text: "Une cuillère à café de matière d'étoile à neutrons pèserait environ un milliard de tonnes.", cat: "Astrophysique" },
+      { text: "Le cerveau humain contient environ 86 milliards de neurones, chacun connecté à des milliers d'autres.", cat: "Neurosciences" },
+      { text: "L'internet est né avec ARPANET en 1969, mais le World Wide Web n'a été créé par Tim Berners-Lee qu'en 1991.", cat: "Histoire de l'info" },
+      { text: "Unix, créé en 1969, a directement ou indirectement inspiré macOS, Linux, Android et iOS.", cat: "Systèmes d'exploitation" },
+      { text: "Il existe environ 10⁸⁰ atomes dans l'univers observable, mais environ 10¹²⁰ parties d'échecs possibles.", cat: "Mathématiques" },
+      { text: "Un smartphone moderne est des millions de fois plus puissant que les ordinateurs qui ont guidé Apollo 11 vers la Lune.", cat: "Informatique" },
+      { text: "Python a été nommé d'après le groupe comique britannique Monty Python, et non d'après le serpent.", cat: "Langages" },
+      { text: "Le premier email a été envoyé en 1971 par Ray Tomlinson, qui a également introduit le @ dans les adresses mail.", cat: "Histoire de l'info" },
+      { text: "En informatique quantique, un qubit peut représenter 0 et 1 simultanément grâce à la superposition quantique.", cat: "Informatique quantique" },
+      { text: "Environ 90 % de toutes les données mondiales ont été créées au cours des deux dernières années.", cat: "Big Data" },
+      { text: "Le son se déplace à environ 340 m/s dans l'air, mais à 5 900 m/s dans l'acier — 17 fois plus vite.", cat: "Physique" },
+      { text: "Linux, qui fait tourner la majorité des serveurs web du monde, a commencé comme le projet hobby d'un étudiant finlandais de 21 ans.", cat: "Systèmes d'exploitation" },
+      { text: "Le protocole IPv4 permet environ 4,3 milliards d'adresses IP. IPv6 en permet 340 undécillions.", cat: "Réseaux" },
+      { text: "Le terme « hacker » désignait à l'origine quelqu'un de créatif et doué en programmation, sans connotation négative.", cat: "Culture informatique" },
+      { text: "Le gène FOXP2, associé au langage chez l'humain, est aussi présent chez les oiseaux chanteurs — pour le même usage.", cat: "Génétique" },
+      { text: "Le zéro absolu (−273,15 °C) est la température à laquelle les molécules cessent théoriquement tout mouvement.", cat: "Thermodynamique" },
+      { text: "Le premier disque dur, créé par IBM en 1956, pesait une tonne et ne stockait que 5 mégaoctets.", cat: "Histoire de l'info" },
+      { text: "Un photon met environ 100 000 ans pour aller du cœur du Soleil à sa surface, mais seulement 8 minutes pour atteindre la Terre.", cat: "Astrophysique" },
+      { text: "Le mot « robot » vient du tchèque <em>robota</em>, signifiant travail forcé. Il a été inventé par Karel Čapek en 1920.", cat: "Histoire" },
+      { text: "Les nombres premiers ont plus de 2 000 ans d'histoire, mais restent au cœur de toute la cryptographie moderne.", cat: "Mathématiques" },
+      { text: "Il n'existe pas de nombre pair premier supérieur à 2. Tous les autres nombres premiers sont impairs.", cat: "Mathématiques" },
+      { text: "Le théorème de Gödel démontre qu'aucun système logique suffisamment puissant ne peut prouver toutes les vérités qu'il contient.", cat: "Logique" },
+      { text: "La majorité des humains sur Terre accède à internet via un smartphone, non un ordinateur.", cat: "Usages numériques" },
+      { text: "La compilation transforme du code lisible par l'humain en instructions binaires directement comprises par le processeur.", cat: "Informatique" },
+      { text: "Le nombre pi contient, quelque part en lui, n'importe quelle suite de chiffres imaginable — votre date de naissance incluse.", cat: "Mathématiques" },
+      { text: "L'effet tunnel quantique permet aux électrons de traverser des barrières infranchissables : c'est ce qui rend les processeurs modernes possibles.", cat: "Physique quantique" },
+      { text: "Le signe égal (=) a été inventé en 1557 par Robert Recorde pour éviter d'écrire « est égal à » sans cesse.", cat: "Histoire des maths" },
+      { text: "Les câbles de fibre optique transmettent des données sous forme de lumière à près de 200 000 km/s.", cat: "Réseaux" },
+      { text: "Le génome humain contient environ 20 000 gènes — soit moins que celui du maïs (32 000).", cat: "Génomique" },
+      { text: "La première image numérique de l'histoire, numérisée en 1957, était une photo d'un bébé.", cat: "Histoire de l'info" },
+      { text: "Le paradoxe de Fermi : si l'univers regorge de planètes habitables, pourquoi n'a-t-on jamais détecté de signe de vie extraterrestre ?", cat: "Astrophysique" },
+      { text: "Ada Lovelace, fille du poète Byron, est considérée comme la première programmeuse de l'histoire — au XIXe siècle.", cat: "Histoire de l'info" },
+      { text: "Le hasard ne peut être parfaitement simulé par un algorithme ; les ordinateurs génèrent du « pseudo-aléatoire ».", cat: "Informatique" },
+      { text: "La clé de chiffrement RSA standard est de 2048 bits — la casser prendrait des millions d'années aux ordinateurs actuels.", cat: "Cryptographie" },
+      { text: "La Terre a parcouru environ 940 millions de kilomètres autour du Soleil depuis votre naissance, si vous avez 30 ans.", cat: "Astronomie" },
+      { text: "Le compilateur GCC, utilisé pour compiler Linux et des millions d'autres logiciels, est lui-même écrit en C.", cat: "Informatique" },
+      { text: "Un ordinateur quantique suffisamment puissant pourrait casser une clé RSA-2048 en quelques heures.", cat: "Informatique quantique" },
+      { text: "L'espace entre le noyau d'un atome et ses électrons est proportionnellement aussi vide que l'espace entre le Soleil et ses planètes.", cat: "Physique atomique" },
+      { text: "Le langage SQL, inventé en 1974, reste l'un des langages informatiques les plus utilisés au monde.", cat: "Bases de données" },
+      { text: "Il existe plus de façons de mélanger un jeu de 52 cartes qu'il n'y a eu de secondes depuis le Big Bang.", cat: "Mathématiques" },
+      { text: "Le premier ordinateur personnel grand public, l'Apple II, est sorti en 1977.", cat: "Histoire de l'info" },
+      { text: "Un gramme d'ADN peut théoriquement stocker 215 pétaoctets de données, soit 215 millions de gigaoctets.", cat: "Bioinformatique" },
+    ];
+ 
+    const total = facts.length;
+    let current = Math.floor(Math.random() * total);
+    const seen = new Set([current]);
+ 
+    const textEl   = document.getElementById('ff-text');
+    const badgeEl  = document.getElementById('ff-badge');
+    const counterEl= document.getElementById('ff-counter');
+ 
+    function render() {
+      textEl.innerHTML    = facts[current].text;
+      badgeEl.textContent = facts[current].cat;
+      counterEl.textContent = `${current + 1} / ${total}`;
+    }
+ 
+    function next() {
+      if (seen.size >= total) seen.clear();
+      let n;
+      do { n = Math.floor(Math.random() * total); } while (seen.has(n));
+      current = n;
+      seen.add(n);
+ 
+      textEl.classList.add('hidden');
+      badgeEl.classList.add('hidden');
+      setTimeout(() => {
+        render();
+        textEl.classList.remove('hidden');
+        badgeEl.classList.remove('hidden');
+      }, 280);
+    }
+ 
+    document.getElementById('ff-btn').addEventListener('click', next);
+ 
+    render();
+  </script>
 </body>
 </html>
+ 

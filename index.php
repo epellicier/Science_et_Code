@@ -102,7 +102,11 @@
   <div class="presentation">
     <h3>Bienvenue sur mon site dédié à la science et au code, je suis un jeune codeur passionné de science, de code et d'humour :-).Ce site est mon tout premier site! Ici, vous trouverez des tutoriels de programmation clairs pour apprendre en s'amusant ! Que vous soyez curieux ou passionné, ce site vous guide pour explorer le monde scientifique tout en développant vos compétences en code !</h3>
   </div>
- 
+ <br>
+  <div class="presentation">
+    <h3>Fun facts 😊:</h3>
+    <span style="color:firebrick; font-size:13pt;"><?php include 'Fun.php';?><br></span><br>
+  </div>
   <div style="text-align: center;">
     <img style="width:50pt;" src="https://hits.sh/github.com/epellicier/Science_et_Code.svg?label=Visites&color=9c1c0d&labelColor=f7f3f3" alt="Visites 🔥">
   </div>

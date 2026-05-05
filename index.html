@@ -51,11 +51,12 @@
       text-decoration: none;
       border-radius: 6px;
       font-size: clamp(12px, 2.5vw, 16px);
-      transition: background-color 0.2s;
+      transition: background-color 0.2s, box-shadow 0.2s;
     }
  
     nav a:hover {
       background-color: #a01010;
+      box-shadow: 0 4px 12px rgba(156, 28, 13, 0.45);
     }
  
     h3 {
@@ -126,10 +127,13 @@
       border-radius: 6px;
       padding: 7px 16px;
       cursor: pointer;
-      transition: background-color 0.2s, transform 0.1s;
+      transition: background-color 0.2s, transform 0.1s, box-shadow 0.2s;
     }
  
-    .funfact-btn:hover { background: #a01010; }
+    .funfact-btn:hover {
+      background: #a01010;
+      box-shadow: 0 4px 12px rgba(156, 28, 13, 0.45);
+    }
     .funfact-btn:active { transform: scale(0.97); }
  
     .funfact-counter {
@@ -290,4 +294,3 @@
   </script>
 </body>
 </html>
- 

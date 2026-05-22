@@ -142,6 +142,63 @@
       white-space: nowrap;
     }
  
+    /* ── Convertisseur binaire ── */
+    .binaire-code {
+      background: #1e1e2e;
+      border-radius: 8px;
+      padding: 14px 18px;
+      font-family: 'Courier New', monospace;
+      font-size: clamp(12px, 2.2vw, 14px);
+      line-height: 1.8;
+      overflow-x: auto;
+      margin: 0;
+      color: #cdd6f4;
+    }
+ 
+    .binaire-code .kw   { color: #89b4fa; }  /* variable */
+    .binaire-code .fn   { color: #a6e3a1; }  /* fonction  */
+    .binaire-code .str  { color: #f9e2af; }  /* chaîne    */
+    .binaire-code .num  { color: #fab387; }  /* slice     */
+    .binaire-code .cm   { color: #6c7086; }  /* commentaire */
+ 
+    .binaire-input {
+      flex: 1;
+      min-width: 160px;
+      padding: 8px 12px;
+      border: 2px solid firebrick;
+      border-radius: 6px;
+      font-family: Arial, sans-serif;
+      font-size: 14px;
+      outline: none;
+      transition: box-shadow 0.2s;
+    }
+    .binaire-input:focus {
+      box-shadow: 0 0 0 3px rgba(178, 34, 34, 0.18);
+    }
+ 
+    .binaire-output {
+      font-family: 'Courier New', monospace;
+      font-size: clamp(13px, 2.3vw, 15px);
+      color: #1a1a1a;
+      background: #f5e0e0;
+      border-radius: 6px;
+      padding: 10px 14px;
+      min-height: 40px;
+      display: none;
+      transition: opacity 0.3s ease, transform 0.3s ease;
+      opacity: 0;
+      transform: translateY(6px);
+    }
+    .binaire-output.visible {
+      display: block;
+      opacity: 1;
+      transform: translateY(0);
+    }
+    .binaire-output.error {
+      background: #fde8e8;
+      color: firebrick;
+    }
+ 
     @media (max-width: 768px) {
       body { padding: 12px; }
     }
@@ -165,6 +222,11 @@
       }
  
       .funfact-btn { width: 100%; text-align: center; }
+ 
+      .binaire-row {
+        flex-direction: column;
+      }
+      .binaire-input { width: 100%; }
     }
   </style>
 </head>
@@ -188,6 +250,38 @@
  
   <br>
  
+  <!-- ── Convertisseur binaire ── -->
+  <div class="presentation">
+    <h3>🐍 Convertisseur décimal → binaire</h3>
+ 
+    <div class="funfact-box" style="gap: 14px;">
+ 
+      <!-- Code Python affiché -->
+      <pre class="binaire-code"><span class="cm"># Code Python</span>
+<span class="kw">Question</span>   = <span class="fn">int</span>(<span class="fn">input</span>(<span class="str">"Quel est ton nombre à convertir en binaire ? "</span>))
+<span class="kw">nb_binaire</span> = <span class="fn">bin</span>(Question)[<span class="num">2:</span>]
+<span class="fn">print</span>(<span class="kw">nb_binaire</span>)</pre>
+ 
+      <!-- Entrée + bouton -->
+      <div class="funfact-footer binaire-row">
+        <span class="funfact-badge">JavaScript</span>
+        <input
+          id="bin-input"
+          class="binaire-input"
+          type="number"
+          min="0"
+          placeholder="Entre un entier positif…"
+        >
+        <button id="bin-btn" class="funfact-btn">▶ Convertir</button>
+      </div>
+ 
+      <!-- Résultat -->
+      <div id="bin-output" class="binaire-output"></div>
+ 
+    </div>
+  </div>
+ 
+  <!-- ── Fun facts ── -->
   <div class="presentation">
     <h3>Fun facts 😊 :</h3>
     <div class="funfact-box">
@@ -205,6 +299,49 @@
   </div>
  
   <script>
+    /* ════════════════════════════════
+       Convertisseur décimal → binaire
+       ════════════════════════════════ */
+    (function () {
+      const btn    = document.getElementById('bin-btn');
+      const input  = document.getElementById('bin-input');
+      const output = document.getElementById('bin-output');
+ 
+      function convert() {
+        const val = input.value.trim();
+ 
+        // Masquer avec transition
+        output.classList.remove('visible');
+ 
+        setTimeout(function () {
+          // Validation
+          if (val === '' || isNaN(val) || parseInt(val) < 0 || !Number.isInteger(parseFloat(val))) {
+            output.classList.remove('error');
+            output.classList.add('error');
+            output.textContent = '⚠️ Entre un entier positif (ex. 42).';
+          } else {
+            const n = parseInt(val, 10);
+            const binaire = n.toString(2);   // équivalent de bin()[2:] en Python
+            output.classList.remove('error');
+            output.innerHTML =
+              '<strong>' + n + '</strong> en binaire &nbsp;→&nbsp; '
+              + '<span style="color:firebrick;font-weight:bold;">' + binaire + '</span>'
+              + ' &nbsp;<span style="color:#888;font-size:11px;">(' + binaire.length + ' bits)</span>';
+          }
+          output.classList.add('visible');
+        }, 180);
+      }
+ 
+      btn.addEventListener('click', convert);
+      input.addEventListener('keydown', function (e) {
+        if (e.key === 'Enter') convert();
+      });
+    })();
+ 
+ 
+    /* ═══════════════
+       Fun facts
+       ═══════════════ */
     const facts = [
       { text: "Un octet contient 8 bits. Le mot « octet » vient du latin <em>octo</em>, signifiant huit.", cat: "Informatique" },
       { text: "Le premier bug informatique était un vrai insecte : une mite trouvée dans un relais du Harvard Mark II en 1947.", cat: "Histoire de l'info" },
@@ -295,3 +432,4 @@
   </script>
 </body>
 </html>
+ 

@@ -250,278 +250,9 @@
     }
   </style>
 </head>
-<body>
-</body>
-</html>
-LE CODE ENTIER
-<!DOCTYPE html>
-<html lang="fr">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Ce site parle de Science et de Code ,des tutoriels pour apprendre le HTML et d'autres langages informatiques que vous soyez passionné ou pas ce site est fait pour vous!">
-  <meta name="author" content="Élie Pellicier">
-  <meta name="keywords" content="science, code, html, programmation, tutoriel, apprendre à coder">
-  <title>Science et code</title>
-
-  <style>
-    * {
-      box-sizing: border-box;
-    }
-
-    body {
-      margin: 0;
-      padding: 16px;
-      background-color: #eaeaeb;
-      font-family: Arial, sans-serif;
-    }
-
-    h1 {
-      text-align: center;
-      font-family: courier;
-      color: firebrick;
-      font-size: clamp(20pt, 5vw, 30pt);
-      margin: 16px 0;
-      word-break: break-word;
-    }
-
-    .presentation {
-      border: 2px solid firebrick;
-      padding: 16px;
-      border-radius: 10px;
-      margin-bottom: 20px;
-    }
-
-    nav {
-      text-align: center;
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 12px;
-    }
-
-    nav a {
-      display: inline-block;
-      padding: 8px 14px;
-      background-color: firebrick;
-      color: white;
-      text-decoration: none;
-      border-radius: 6px;
-      font-size: clamp(12px, 2.5vw, 16px);
-      transition: background-color 0.2s, box-shadow 0.2s;
-    }
-
-    nav a:hover {
-      background-color: #a01010;
-      box-shadow: 0 4px 12px rgba(156, 28, 13, 0.45);
-    }
-
-    h3 {
-      text-align: center;
-      font-family: Arial;
-      font-size: clamp(13px, 2.5vw, 17px);
-      line-height: 1.6;
-      margin: 0;
-    }
-
-    /* ── Fun facts ── */
-    .funfact-box {
-      margin-top: 14px;
-      background: #fff8f8;
-      border-radius: 8px;
-      padding: 16px 18px;
-      min-height: 80px;
-      display: flex;
-      flex-direction: column;
-      gap: 12px;
-    }
-
-    .funfact-text {
-      font-family: Arial, sans-serif;
-      font-size: clamp(13px, 2.3vw, 15px);
-      line-height: 1.65;
-      color: #1a1a1a;
-      font-style: italic;
-      text-align: center;
-      opacity: 1;
-      transform: translateY(0);
-      transition: opacity 0.3s ease, transform 0.3s ease;
-    }
-
-    .funfact-text.hidden {
-      opacity: 0;
-      transform: translateY(8px);
-    }
-
-    .funfact-footer {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      flex-wrap: wrap;
-      gap: 8px;
-    }
-
-    .funfact-badge {
-      font-size: 11px;
-      font-weight: bold;
-      text-transform: uppercase;
-      letter-spacing: 0.05em;
-      color: firebrick;
-      background: #f5e0e0;
-      padding: 4px 12px;
-      border-radius: 999px;
-      transition: opacity 0.3s ease;
-    }
-
-    .funfact-badge.hidden {
-      opacity: 0;
-    }
-
-    .funfact-btn {
-      font-family: Arial, sans-serif;
-      font-size: clamp(12px, 2vw, 14px);
-      color: white;
-      background: firebrick;
-      border: none;
-      border-radius: 6px;
-      padding: 7px 16px;
-      cursor: pointer;
-      transition: background-color 0.2s, transform 0.1s, box-shadow 0.2s;
-    }
-
-    .funfact-btn:hover {
-      background: #a01010;
-      box-shadow: 0 4px 12px rgba(156, 28, 13, 0.45);
-    }
-
-    .funfact-btn:active {
-      transform: scale(0.97);
-    }
-
-    .funfact-counter {
-      font-size: 11px;
-      color: #888;
-      white-space: nowrap;
-    }
-
-    /* ── Convertisseur binaire ── */
-    .binaire-code {
-      background: #1e1e2e;
-      border-radius: 8px;
-      padding: 14px 18px;
-      font-family: 'Courier New', monospace;
-      font-size: clamp(12px, 2.2vw, 14px);
-      line-height: 1.8;
-      overflow-x: auto;
-      margin: 0;
-      color: #cdd6f4;
-    }
-
-    .binaire-code .kw {
-      color: #89b4fa;
-    }
-
-    .binaire-code .fn {
-      color: #a6e3a1;
-    }
-
-    .binaire-code .str {
-      color: #f9e2af;
-    }
-
-    .binaire-code .num {
-      color: #fab387;
-    }
-
-    .binaire-code .cm {
-      color: #6c7086;
-    }
-
-    .binaire-input {
-      flex: 1;
-      min-width: 160px;
-      padding: 8px 12px;
-      border: 2px solid firebrick;
-      border-radius: 6px;
-      font-family: Arial, sans-serif;
-      font-size: 14px;
-      outline: none;
-      transition: box-shadow 0.2s;
-    }
-
-    .binaire-input:focus {
-      box-shadow: 0 0 0 3px rgba(178, 34, 34, 0.18);
-    }
-
-    .binaire-output {
-      font-family: 'Courier New', monospace;
-      font-size: clamp(13px, 2.3vw, 15px);
-      color: #1a1a1a;
-      background: #f5e0e0;
-      border-radius: 6px;
-      padding: 10px 14px;
-      min-height: 40px;
-      display: none;
-      transition: opacity 0.3s ease, transform 0.3s ease;
-      opacity: 0;
-      transform: translateY(6px);
-    }
-
-    .binaire-output.visible {
-      display: block;
-      opacity: 1;
-      transform: translateY(0);
-    }
-
-    .binaire-output.error {
-      background: #fde8e8;
-      color: firebrick;
-    }
-
-    @media (max-width: 768px) {
-      body {
-        padding: 12px;
-      }
-    }
-
-    @media (max-width: 480px) {
-      body {
-        padding: 10px;
-      }
-
-      nav {
-        flex-direction: column;
-        align-items: center;
-      }
-
-      nav a {
-        width: 100%;
-        text-align: center;
-      }
-
-      .funfact-footer {
-        flex-direction: column;
-        align-items: center;
-      }
-
-      .funfact-btn {
-        width: 100%;
-        text-align: center;
-      }
-
-      .binaire-row {
-        flex-direction: column;
-      }
-
-      .binaire-input {
-        width: 100%;
-      }
-    }
-  </style>
-</head>
 
 <body>
-
+<img src="logosite.png" class="logo" alt="Logo Science et Code">
   <h1>Science et Code 😊</h1>
 
   <div class="presentation">
@@ -682,18 +413,51 @@ LE CODE ENTIER
        ═══════════════ */
 
     const facts = [
-      {
-        text: "Un octet contient 8 bits.",
-        cat: "Informatique"
-      },
-      {
-        text: "Le premier bug informatique était une vraie mite.",
-        cat: "Histoire"
-      },
-      {
-        text: "Python a été nommé d'après Monty Python.",
-        cat: "Langages"
-      }
+      // ── Informatique ──
+      { text: "Un octet contient 8 bits.", cat: "Informatique" },
+      { text: "Le premier bug informatique était une vraie mite trouvée dans un ordinateur en 1947.", cat: "Histoire" },
+      { text: "Python a été nommé d'après Monty Python, le groupe comique britannique.", cat: "Langages" },
+      { text: "Il existe plus de 700 langages de programmation différents dans le monde.", cat: "Informatique" },
+      { text: "Le premier ordinateur pesait environ 27 tonnes et occupait une pièce entière.", cat: "Histoire" },
+      { text: "Le mot « algorithm » vient du nom du mathématicien Al-Khwarizmi, qui vécut au IXe siècle.", cat: "Histoire" },
+      { text: "Le logo de Python représente deux serpents entrelacés, un python et un boa.", cat: "Langages" },
+      { text: "JavaScript a été créé en seulement 10 jours par Brendan Eich en 1995.", cat: "Langages" },
+      { text: "Git, le système de gestion de versions, a été créé par Linus Torvalds en 2005.", cat: "Informatique" },
+      { text: "Il y a plus de 5 milliards d'utilisateurs d'internet dans le monde.", cat: "Informatique" },
+      { text: "Le premier email a été envoyé en 1971 par Ray Tomlinson, qui a aussi inventé l'utilisation du @ dans les adresses.", cat: "Histoire" },
+      { text: "Un SSD lit les données environ 10 fois plus vite qu'un disque dur classique.", cat: "Informatique" },
+      { text: "Le code source de Linux compte plus de 27 millions de lignes.", cat: "Informatique" },
+      { text: "Le terme « spam » pour les courriels indésirables vient d'un sketch des Monty Python.", cat: "Culture" },
+      { text: "La première souris d'ordinateur était en bois, inventée par Douglas Engelbart en 1964.", cat: "Histoire" },
+      { text: "En Python, l'indentation n'est pas optionnelle : elle fait partie de la syntaxe.", cat: "Langages" },
+      { text: "Le Wi-Fi a été inventé en Australie dans les années 1990.", cat: "Informatique" },
+      { text: "HTML n'est pas un langage de programmation, c'est un langage de balisage.", cat: "Langages" },
+      { text: "Le premier virus informatique, « Creeper », date de 1971 et s'affichait simplement sur l'écran.", cat: "Histoire" },
+      { text: "Il faudrait environ 1 000 ans pour vider un téraoctet de données si on lisait un bit par seconde.", cat: "Informatique" },
+
+      // ── Sciences ──
+      { text: "La lumière met environ 8 minutes pour voyager du Soleil à la Terre.", cat: "Astronomie" },
+      { text: "L'ADN humain déroulé ferait environ 2 mètres de long par cellule.", cat: "Biologie" },
+      { text: "Il y a plus d'étoiles dans l'univers observable que de grains de sable sur Terre.", cat: "Astronomie" },
+      { text: "Le cerveau humain génère environ 23 watts d'énergie quand il est éveillé.", cat: "Biologie" },
+      { text: "L'eau peut exister sous trois états simultanément au « point triple » : 0,01 °C et 611 Pa.", cat: "Physique" },
+      { text: "Un éclair peut chauffer l'air autour de lui à 30 000 °C, soit 5 fois la surface du Soleil.", cat: "Physique" },
+      { text: "Les fourmis peuvent porter 50 fois leur propre poids.", cat: "Biologie" },
+      { text: "La vitesse du son est environ 343 m/s dans l'air, mais plus de 5 000 m/s dans l'acier.", cat: "Physique" },
+      { text: "L'univers observable a un diamètre d'environ 93 milliards d'années-lumière.", cat: "Astronomie" },
+      { text: "Un atome est composé à 99,9999 % de vide.", cat: "Physique" },
+      { text: "Le cœur humain bat environ 100 000 fois par jour.", cat: "Biologie" },
+      { text: "Saturne est la seule planète du système solaire moins dense que l'eau.", cat: "Astronomie" },
+      { text: "Les pieuvres ont trois cœurs et un sang de couleur bleue.", cat: "Biologie" },
+      { text: "La Lune s'éloigne de la Terre d'environ 3,8 cm chaque année.", cat: "Astronomie" },
+      { text: "Le nombre d'atomes dans un grain de sable est supérieur au nombre de grains de sable sur une plage.", cat: "Physique" },
+
+      // ── Maths ──
+      { text: "Le mot « mathématiques » vient du grec « mathema », qui signifie « ce que l'on apprend ».", cat: "Maths" },
+      { text: "0 n'est ni positif ni négatif, c'est le seul entier dans cette situation.", cat: "Maths" },
+      { text: "Pi (π) a été calculé avec plus de 100 000 milliards de décimales.", cat: "Maths" },
+      { text: "Le nombre d'or (φ ≈ 1,618) apparaît dans les spirales des coquillages, les fleurs et même les galaxies.", cat: "Maths" },
+      { text: "Un googol, c'est 10 puissance 100 — bien plus grand que le nombre d'atomes dans l'univers observable.", cat: "Maths" },
     ];
 
     const total = facts.length;
@@ -714,7 +478,12 @@ LE CODE ENTIER
 
     function next() {
 
-      current = Math.floor(Math.random() * total);
+      // Évite de retomber deux fois de suite sur le même fait
+      let next;
+      do {
+        next = Math.floor(Math.random() * total);
+      } while (next === current && total > 1);
+      current = next;
 
       textEl.classList.add('hidden');
       badgeEl.classList.add('hidden');

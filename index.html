@@ -7,7 +7,6 @@
   <meta name="author" content="Élie Pellicier">
   <meta name="keywords" content="science, code, html, programmation, tutoriel, apprendre à coder">
   <title>Science et code</title>
-  <link rel="icon" type="image/png" href="logosite.png">
   <style>
     * {
       box-sizing: border-box;
@@ -138,7 +137,7 @@
       background: #a01010;
       box-shadow: 0 4px 12px rgba(156, 28, 13, 0.45);
     }
-
+ 
     .funfact-btn:active {
       transform: scale(0.97);
     }
@@ -179,7 +178,7 @@
       outline: none;
       transition: box-shadow 0.2s;
     }
-
+ 
     .binaire-input:focus {
       box-shadow: 0 0 0 3px rgba(178, 34, 34, 0.18);
     }
@@ -197,13 +196,13 @@
       opacity: 0;
       transform: translateY(6px);
     }
-
+ 
     .binaire-output.visible {
       display: block;
       opacity: 1;
       transform: translateY(0);
     }
-
+ 
     .binaire-output.error {
       background: #fde8e8;
       color: firebrick;
@@ -243,17 +242,17 @@
       .binaire-row {
         flex-direction: column;
       }
-
+ 
       .binaire-input {
         width: 100%;
       }
     }
   </style>
 </head>
-
+ 
 <body>
   <h1>Science et Code 😊</h1>
-
+ 
   <div class="presentation">
     <nav>
       <a href="page2.html">Apprendre le HTML 💻</a>
@@ -264,7 +263,7 @@
       <a href="Python.html">Apprendre les bases du python 🐍</a>
     </nav>
   </div>
-
+ 
   <div class="presentation">
     <h3>
       Bienvenue sur mon site dédié à la science et au code,
@@ -275,25 +274,25 @@
       tout en développant vos compétences en code !
     </h3>
   </div>
-
+ 
   <br>
-
+ 
   <!-- ── Convertisseur binaire ── -->
   <div class="presentation">
     <h3>🐍 Convertisseur décimal → binaire</h3>
-
+ 
     <div class="funfact-box" style="gap: 14px;">
-
+ 
       <!-- Code Python affiché -->
       <pre class="binaire-code"><span class="cm"># Code Python</span>
 <span class="kw">Question</span>   = <span class="fn">int</span>(<span class="fn">input</span>(<span class="str">"Quel est ton nombre à convertir en binaire ? "</span>))
 <span class="kw">nb_binaire</span> = <span class="fn">bin</span>(Question)[<span class="num">2:</span>]
 <span class="fn">print</span>(<span class="kw">nb_binaire</span>)</pre>
-
+ 
       <!-- Entrée + bouton -->
       <div class="funfact-footer binaire-row">
         <span class="funfact-badge">JavaScript</span>
-
+ 
         <input
           id="bin-input"
           class="binaire-input"
@@ -301,36 +300,36 @@
           min="0"
           placeholder="Entre un entier positif…"
         >
-
+ 
         <button id="bin-btn" class="funfact-btn">
           ▶ Convertir
         </button>
       </div>
-
+ 
       <!-- Résultat -->
       <div id="bin-output" class="binaire-output"></div>
-
+ 
     </div>
   </div>
-
+ 
   <!-- ── Fun facts ── -->
   <div class="presentation">
     <h3>Fun facts 😊 :</h3>
-
+ 
     <div class="funfact-box">
       <p class="funfact-text" id="ff-text"></p>
-
+ 
       <div class="funfact-footer">
         <span class="funfact-badge" id="ff-badge"></span>
         <span class="funfact-counter" id="ff-counter"></span>
-
+ 
         <button class="funfact-btn" id="ff-btn">
           Surprends-moi 🤪!
         </button>
       </div>
     </div>
   </div>
-
+ 
   <div style="text-align: center;">
     <img
       style="width:50pt;"
@@ -338,27 +337,27 @@
       alt="Visites 🔥"
     >
   </div>
-
+ 
   <script>
     /* ════════════════════════════════
        Convertisseur décimal → binaire
        ════════════════════════════════ */
-
+ 
     (function () {
-
+ 
       const btn = document.getElementById('bin-btn');
       const input = document.getElementById('bin-input');
       const output = document.getElementById('bin-output');
-
+ 
       function convert() {
-
+ 
         const val = input.value.trim();
-
+ 
         // Masquer avec transition
         output.classList.remove('visible');
-
+ 
         setTimeout(function () {
-
+ 
           // Validation
           if (
             val === '' ||
@@ -366,22 +365,22 @@
             parseInt(val) < 0 ||
             !Number.isInteger(parseFloat(val))
           ) {
-
+ 
             output.classList.remove('error');
             output.classList.add('error');
-
+ 
             output.textContent =
               '⚠️ Entre un entier positif (ex. 42).';
-
+ 
           } else {
-
+ 
             const n = parseInt(val, 10);
-
+ 
             // équivalent de bin()[2:] en Python
             const binaire = n.toString(2);
-
+ 
             output.classList.remove('error');
-
+ 
             output.innerHTML =
               '<strong>' + n + '</strong> en binaire → ' +
               '<span style="color:firebrick;font-weight:bold;">' +
@@ -391,26 +390,26 @@
               binaire.length +
               ' bits)</span>';
           }
-
+ 
           output.classList.add('visible');
-
+ 
         }, 180);
       }
-
+ 
       btn.addEventListener('click', convert);
-
+ 
       input.addEventListener('keydown', function (e) {
         if (e.key === 'Enter') {
           convert();
         }
       });
-
+ 
     })();
-
+ 
     /* ═══════════════
        Fun facts
        ═══════════════ */
-
+ 
     const facts = [
       // ── Informatique ──
       { text: "Un octet contient 8 bits.", cat: "Informatique" },
@@ -433,7 +432,34 @@
       { text: "HTML n'est pas un langage de programmation, c'est un langage de balisage.", cat: "Langages" },
       { text: "Le premier virus informatique, « Creeper », date de 1971 et s'affichait simplement sur l'écran.", cat: "Histoire" },
       { text: "Il faudrait environ 1 000 ans pour vider un téraoctet de données si on lisait un bit par seconde.", cat: "Informatique" },
-
+ 
+      // ── Informatique (nouveaux) ──
+      { text: "Le premier disque dur, lancé par IBM en 1956, pesait une tonne et stockait 5 mégaoctets.", cat: "Histoire" },
+      { text: "Le processeur Intel 4004, le premier microprocesseur commercial (1971), contenait 2 300 transistors. Les puces modernes en contiennent des milliards.", cat: "Informatique" },
+      { text: "Le mot « pixel » est la contraction de « picture element ».", cat: "Informatique" },
+      { text: "Le terme « bug » (insecte) pour désigner une erreur de code est utilisé dans l'ingénierie depuis le XIXe siècle, bien avant l'informatique.", cat: "Histoire" },
+      { text: "Le premier nom de domaine jamais enregistré était symbolics.com, en 1985.", cat: "Histoire" },
+      { text: "Il existe un langage de programmation appelé « Brainfuck » qui ne possède que 8 instructions.", cat: "Langages" },
+      { text: "Le « dark web » représente environ 5 % de l'internet total ; le reste est indexé par les moteurs de recherche.", cat: "Informatique" },
+      { text: "La loi de Moore prédit que le nombre de transistors sur une puce double tous les deux ans, et ce depuis 1965.", cat: "Informatique" },
+      { text: "ENIAC, le premier ordinateur électronique général (1945), consommait autant d'électricité que 150 ampoules allumées en permanence.", cat: "Histoire" },
+      { text: "Le langage C a été créé en 1972 par Dennis Ritchie chez Bell Labs.", cat: "Langages" },
+      { text: "Java a pour slogan « Write Once, Run Anywhere » : un programme Java compilé tourne sur n'importe quel système.", cat: "Langages" },
+      { text: "Le premier jeu vidéo commercial, Pong, est sorti en 1972.", cat: "Histoire" },
+      { text: "Le réseau ARPANET, ancêtre d'Internet, a transmis son premier message en 1969. Le système a planté après deux lettres : « lo » au lieu de « login ».", cat: "Histoire" },
+      { text: "Un caractère UTF-8 peut occuper entre 1 et 4 octets selon la langue utilisée.", cat: "Informatique" },
+      { text: "Le langage SQL fête ses 50 ans : il a été standardisé pour la première fois en 1974.", cat: "Langages" },
+      { text: "Le « Hello, World! » est une tradition de programmation qui remonte à un livre de Brian Kernighan en 1978.", cat: "Culture" },
+      { text: "GitHub héberge plus de 330 millions de dépôts de code.", cat: "Informatique" },
+      { text: "Un écran 4K affiche 3 840 × 2 160 pixels, soit plus de 8 millions de points par image.", cat: "Informatique" },
+      { text: "Le langage Rust est élu langage de programmation le plus apprécié des développeurs depuis 8 années consécutives sur Stack Overflow.", cat: "Langages" },
+      { text: "L'ASCII original définit 128 caractères, dont 33 caractères de contrôle non imprimables.", cat: "Informatique" },
+      { text: "Le premier smartphone au sens moderne était l'IBM Simon, sorti en 1994, avant l'iPhone de 13 ans.", cat: "Histoire" },
+      { text: "Le CSS (Cascading Style Sheets) a été inventé par Håkon Wium Lie en 1994.", cat: "Langages" },
+      { text: "Une adresse IPv6 fait 128 bits, ce qui donne environ 340 sextillions d'adresses possibles.", cat: "Informatique" },
+      { text: "Le protocole HTTPS chiffre les données grâce à TLS ; le « S » signifie « Secure ».", cat: "Informatique" },
+      { text: "Les cookies web ont été inventés par Lou Montulli en 1994 pour retenir l'état d'un panier d'achat en ligne.", cat: "Histoire" },
+ 
       // ── Sciences ──
       { text: "La lumière met environ 8 minutes pour voyager du Soleil à la Terre.", cat: "Astronomie" },
       { text: "L'ADN humain déroulé ferait environ 2 mètres de long par cellule.", cat: "Biologie" },
@@ -450,60 +476,112 @@
       { text: "Les pieuvres ont trois cœurs et un sang de couleur bleue.", cat: "Biologie" },
       { text: "La Lune s'éloigne de la Terre d'environ 3,8 cm chaque année.", cat: "Astronomie" },
       { text: "Le nombre d'atomes dans un grain de sable est supérieur au nombre de grains de sable sur une plage.", cat: "Physique" },
-
+ 
+      // ── Sciences (nouveaux) ──
+      { text: "Le son ne peut pas se propager dans le vide : dans l'espace, personne ne vous entend crier.", cat: "Physique" },
+      { text: "La température la plus basse possible est le zéro absolu : −273,15 °C. On ne peut jamais l'atteindre exactement.", cat: "Physique" },
+      { text: "Un neutron isolé est instable : il se désintègre en environ 10 minutes.", cat: "Physique" },
+      { text: "Les chauves-souris sont les seuls mammifères capables de voler véritablement.", cat: "Biologie" },
+      { text: "Le cœur d'une baleine bleue est si grand qu'un humain pourrait ramper dans ses artères.", cat: "Biologie" },
+      { text: "Les arbres communiquent entre eux via des réseaux de champignons souterrains, surnommés le « Wood Wide Web ».", cat: "Biologie" },
+      { text: "Un colibri peut battre des ailes jusqu'à 80 fois par seconde.", cat: "Biologie" },
+      { text: "Les flamants roses naissent blancs ; leur couleur vient des pigments des crevettes qu'ils mangent.", cat: "Biologie" },
+      { text: "Le venin d'une méduse boîte est l'un des plus mortels au monde : il peut tuer un humain en quelques minutes.", cat: "Biologie" },
+      { text: "L'ADN de l'humain est identique à 98,7 % à celui du chimpanzé.", cat: "Biologie" },
+      { text: "Les bactéries représentent environ 38 000 milliards de cellules dans le corps humain, soit autant que les cellules humaines elles-mêmes.", cat: "Biologie" },
+      { text: "La lumière visible ne représente qu'une infime partie du spectre électromagnétique.", cat: "Physique" },
+      { text: "La matière noire constitue environ 27 % de l'univers, mais on ne sait toujours pas ce qu'elle est.", cat: "Astronomie" },
+      { text: "Jupiter est si massive qu'elle pourrait contenir 1 300 Terres à l'intérieur.", cat: "Astronomie" },
+      { text: "Une étoile à neutrons peut tourner sur elle-même 700 fois par seconde.", cat: "Astronomie" },
+      { text: "La surface du Soleil est à environ 5 500 °C, mais sa couronne (atmosphère externe) dépasse le million de degrés.", cat: "Astronomie" },
+      { text: "Vénus tourne si lentement sur elle-même qu'un jour vénusien dure plus longtemps qu'une année vénusienne.", cat: "Astronomie" },
+      { text: "Mars possède le plus grand volcan du système solaire : l'Olympus Mons, trois fois plus haut que l'Everest.", cat: "Astronomie" },
+      { text: "L'eau chaude peut geler plus vite que l'eau froide dans certaines conditions, c'est l'effet Mpemba.", cat: "Physique" },
+      { text: "Un photon met entre 10 000 et 170 000 ans pour voyager du cœur du Soleil jusqu'à sa surface, contre 8 minutes ensuite jusqu'à la Terre.", cat: "Physique" },
+      { text: "Le diamant est la substance naturelle la plus dure connue, mais il peut brûler si on le chauffe suffisamment.", cat: "Physique" },
+      { text: "L'oxygène que vous respirez a été produit à 70 % par des algues microscopiques dans les océans.", cat: "Biologie" },
+      { text: "Un volt, un ampère et un ohm sont liés par la loi d'Ohm : U = R × I.", cat: "Physique" },
+      { text: "L'énergie libérée par un tremblement de terre de magnitude 8 équivaut à des millions de bombes atomiques.", cat: "Physique" },
+      { text: "Les requins existent depuis plus de 450 millions d'années, bien avant les dinosaures.", cat: "Biologie" },
+ 
       // ── Maths ──
       { text: "Le mot « mathématiques » vient du grec « mathema », qui signifie « ce que l'on apprend ».", cat: "Maths" },
       { text: "0 n'est ni positif ni négatif, c'est le seul entier dans cette situation.", cat: "Maths" },
       { text: "Pi (π) a été calculé avec plus de 100 000 milliards de décimales.", cat: "Maths" },
       { text: "Le nombre d'or (φ ≈ 1,618) apparaît dans les spirales des coquillages, les fleurs et même les galaxies.", cat: "Maths" },
       { text: "Un googol, c'est 10 puissance 100 — bien plus grand que le nombre d'atomes dans l'univers observable.", cat: "Maths" },
+ 
+      // ── Maths (nouveaux) ──
+      { text: "Le nombre premier le plus grand connu à ce jour contient plus de 41 millions de chiffres.", cat: "Maths" },
+      { text: "La suite de Fibonacci apparaît dans la disposition des graines de tournesol, les branches des arbres et les spirales des ananas.", cat: "Maths" },
+      { text: "Il existe une infinité de nombres premiers, comme Euclide l'a prouvé il y a plus de 2 000 ans.", cat: "Maths" },
+      { text: "Le paradoxe de Banach-Tarski affirme qu'on peut théoriquement découper une sphère en un nombre fini de morceaux et les réassembler pour obtenir deux sphères identiques à l'originale.", cat: "Maths" },
+      { text: "L'hypothèse de Riemann, posée en 1859, est l'un des problèmes du millénaire non résolus, avec une récompense d'un million de dollars à la clé.", cat: "Maths" },
+      { text: "En base 2 (binaire), le nombre 255 s'écrit 11111111, c'est-à-dire 8 bits tous à 1.", cat: "Maths" },
+      { text: "Le théorème de Pythagore (a² + b² = c²) était connu des Babyloniens 1 000 ans avant Pythagore.", cat: "Maths" },
+      { text: "e ≈ 2,71828 est la base du logarithme naturel et apparaît dans de nombreuses formules de croissance et de décroissance.", cat: "Maths" },
+      { text: "Le zéro a été inventé indépendamment en Inde, en Mésopotamie et chez les Mayas.", cat: "Maths" },
+      { text: "Un nombre parfait est égal à la somme de ses diviseurs propres. Le plus petit est 6 (1+2+3=6).", cat: "Maths" },
+      { text: "Il existe des infinis de tailles différentes : l'infini des entiers est strictement plus petit que l'infini des réels.", cat: "Maths" },
+      { text: "La topologie est la branche des maths qui étudie les formes : pour un topologue, un donut et une tasse à café sont la même chose.", cat: "Maths" },
+ 
+      // ── Culture / Anecdotes ──
+      { text: "Le mot « robot » vient du tchèque « robota » qui signifie « travail forcé ». Il a été popularisé en 1920 par l'écrivain Karel Čapek.", cat: "Culture" },
+      { text: "La calculatrice de poche a été inventée par Texas Instruments en 1967.", cat: "Histoire" },
+      { text: "Le langage de programmation Ada a été nommé en hommage à Ada Lovelace, considérée comme la première programmeuse de l'histoire.", cat: "Histoire" },
+      { text: "Le premier livre imprimé par Gutenberg (vers 1455) était une Bible. L'imprimerie a révolutionné la diffusion du savoir.", cat: "Culture" },
+      { text: "Les émojis ont été créés au Japon en 1999 par Shigetaka Kurita pour NTT DoCoMo.", cat: "Culture" },
+      { text: "Le QR code a été inventé en 1994 par la société japonaise Denso Wave pour suivre les pièces automobiles.", cat: "Histoire" },
+      { text: "Le mot « informatique » est un mot-valise inventé en France en 1962 par Philippe Dreyfus, contraction d'« information » et « automatique ».", cat: "Culture" },
     ];
-
+ 
     const total = facts.length;
-
+ 
     let current = Math.floor(Math.random() * total);
-
+ 
     const textEl = document.getElementById('ff-text');
     const badgeEl = document.getElementById('ff-badge');
     const counterEl = document.getElementById('ff-counter');
-
+ 
     function render() {
-
+ 
       textEl.innerHTML = facts[current].text;
       badgeEl.textContent = facts[current].cat;
       counterEl.textContent =
         (current + 1) + " / " + total;
     }
-
+ 
     function next() {
-
+ 
       // Évite de retomber deux fois de suite sur le même fait
       let next;
       do {
         next = Math.floor(Math.random() * total);
       } while (next === current && total > 1);
       current = next;
-
+ 
       textEl.classList.add('hidden');
       badgeEl.classList.add('hidden');
-
+ 
       setTimeout(() => {
-
+ 
         render();
-
+ 
         textEl.classList.remove('hidden');
         badgeEl.classList.remove('hidden');
-
+ 
       }, 280);
     }
-
+ 
     document
       .getElementById('ff-btn')
       .addEventListener('click', next);
-
+ 
     render();
-
+ 
   </script>
-
+ 
 </body>
 </html>
+ 
+
